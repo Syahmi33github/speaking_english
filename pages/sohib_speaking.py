@@ -8,6 +8,10 @@ from langdetect import detect, DetectorFactory
 from langdetect.lang_detect_exception import LangDetectException
 import re
 
+from streamlit_webrtc import webrtc_streamer, WebRtcMode, ClientSettings
+import tempfile
+import wave
+
 import base64
 
 # === Konfigurasi halaman ===
