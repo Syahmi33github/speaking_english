@@ -4,4 +4,3 @@ openai
 gTTS
 moviepy
 langdetect
-pyaudio
