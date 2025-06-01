@@ -1,6 +1,0 @@
-streamlit
-SpeechRecognition
-openai
-gTTS
-moviepy
-langdetect
