@@ -4,3 +4,4 @@ openai
 gTTS
 moviepy
 langdetect
+streamlit-webrtc==0.45.0
