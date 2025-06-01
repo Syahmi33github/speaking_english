@@ -169,6 +169,59 @@ def speech_to_text_english():
 
     return None
 
+def record_and_transcribe(language="en-US"):
+    st.subheader("🎙️ Record your voice and transcribe to text")
+
+    webrtc_ctx = webrtc_streamer(
+        key="speech-to-text",
+        mode=WebRtcMode.SENDONLY,
+        client_settings=ClientSettings(
+            media_stream_constraints={"video": False, "audio": True},
+            rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+        ),
+        audio_receiver_size=1024,
+        async_processing=True,
+    )
+
+    audio_frames = []
+
+    if webrtc_ctx.audio_receiver:
+        st.info("🔴 Recording... Please speak.")
+        
+        while True:
+            try:
+                audio_frame = webrtc_ctx.audio_receiver.recv()
+            except:
+                break
+            pcm_data = audio_frame.to_ndarray().tobytes()
+            audio_frames.append(pcm_data)
+
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as f:
+            wf = wave.open(f.name, 'wb')
+            wf.setnchannels(1)
+            wf.setsampwidth(2)  # 16-bit
+            wf.setframerate(16000)
+            wf.writeframes(b''.join(audio_frames))
+            wf.close()
+
+            st.success("✅ Audio recorded!")
+
+            recognizer = sr.Recognizer()
+            with sr.AudioFile(f.name) as source:
+                audio_data = recognizer.record(source)
+
+                try:
+                    result_text = recognizer.recognize_google(audio_data, language=language)
+                    st.subheader("📝 Transcription Result:")
+                    st.write(result_text)
+                    return result_text
+                except sr.UnknownValueError:
+                    st.warning("😕 Speech not recognized.")
+                except sr.RequestError:
+                    st.error("❌ Could not connect to Google Speech API.")
+
+    return None
+
 
 def fix_the_sentence(user_input):
     # Panggil API dengan seluruh riwayat percakapan
@@ -550,10 +603,10 @@ with col_halo:
 
                     if st.session_state.mode_bahasa == ":blue[Indonesia]":
                         print(f"mode_bahasa = {mode_bahasa}")
-                        text = speech_to_text_indonesia()
+                        text = record_and_transcribe("id-ID")
                     elif st.session_state.mode_bahasa == ":blue[English]":
                         print(f"mode_bahasa = {mode_bahasa}")
-                        text = speech_to_text_english()
+                        text = record_and_transcribe("en-US")
                     else:
                         print(f"ELSE")
                         text = speech_to_text_indonesia()
