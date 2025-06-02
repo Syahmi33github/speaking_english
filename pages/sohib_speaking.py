@@ -602,7 +602,7 @@ with col_halo:
 
             # ================== Loop Perekaman ==================
             if st.session_state.is_recording:
-                with st.spinner("⏳ Merekam..."):
+                # with st.spinner("⏳ Merekam..."):
                     st.session_state.mode_bahasa = mode_bahasa
 
                     if st.session_state.mode_bahasa == ":blue[Indonesia]":
