@@ -1,7 +1,7 @@
-streamlit==1.25.0
+streamlit
 SpeechRecognition
 openai
 gTTS
 moviepy
 langdetect
-streamlit-webrtc==0.45.0
+streamlit-webrtc
