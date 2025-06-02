@@ -1,5 +1,5 @@
 import streamlit as st
-from streamlit_webrtc import webrtc_streamer, WebRtcMode
+from streamlit_webrtc import webrtc_streamer, WebRtcMode, RTCConfiguration
 import speech_recognition as sr
 import av
 import queue
@@ -41,7 +41,9 @@ st.title("🎤 Ucapan ke Teks di Streamlit")
 webrtc_ctx = webrtc_streamer(
     key="speech-to-text",
     mode=WebRtcMode.SENDONLY,
-    rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+    rtc_configuration=RTCConfiguration(
+        rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+    ),
     media_stream_constraints={"audio": True, "video": False},
     audio_processor_factory=AudioProcessor,
     media_stream_constraints={"video": False, "audio": True},
