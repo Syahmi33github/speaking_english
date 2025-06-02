@@ -1,6 +1,7 @@
 streamlit
 streamlit-webrtc
 SpeechRecognition
+streamlit-audio-recorder
 openai
 gTTS
 moviepy
