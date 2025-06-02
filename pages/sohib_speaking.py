@@ -8,8 +8,8 @@ from langdetect import detect, DetectorFactory
 from langdetect.lang_detect_exception import LangDetectException
 import re
 
-from streamlit_webrtc import webrtc_streamer, WebRtcMode
-from streamlit_webrtc import ClientSettings
+from streamlit_webrtc import webrtc_streamer, WebRtcMode, RTCConfiguration
+# from streamlit_webrtc import ClientSettings
 import tempfile
 import wave
 
@@ -176,16 +176,11 @@ def speech_to_text_english():
 
 def record_and_transcribe(language="en-US"):
     st.subheader("🎙️ Record your voice and transcribe to text")
-
-
-    client_settings = ClientSettings(
-        media_stream_constraints={"audio": True, "video": False}
-    )
     
     webrtc_ctx = webrtc_streamer(
         key="speech-to-text",
         mode=WebRtcMode.SENDONLY,
-        client_settings=ClientSettings(
+        rtc_configuration=RTCConfiguration(
             media_stream_constraints={"video": False, "audio": True},
             rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
         ),
