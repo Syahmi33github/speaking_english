@@ -177,6 +177,11 @@ def speech_to_text_english():
 def record_and_transcribe(language="en-US"):
     st.subheader("🎙️ Record your voice and transcribe to text")
 
+
+    client_settings = ClientSettings(
+        media_stream_constraints={"audio": True, "video": False}
+    )
+    
     webrtc_ctx = webrtc_streamer(
         key="speech-to-text",
         mode=WebRtcMode.SENDONLY,
