@@ -1,7 +1,7 @@
 streamlit
 streamlit-webrtc
 SpeechRecognition
-streamlit-audio-recorder
+git+https://github.com/stefanrmmr/streamlit_audio_recorder
 openai
 gTTS
 moviepy
