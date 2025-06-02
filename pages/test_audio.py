@@ -44,7 +44,6 @@ webrtc_ctx = webrtc_streamer(
     rtc_configuration=RTCConfiguration(
         rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
     ),
-    media_stream_constraints={"audio": True, "video": False},
     audio_processor_factory=AudioProcessor,
     media_stream_constraints={"video": False, "audio": True},
 )
