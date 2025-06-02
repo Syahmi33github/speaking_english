@@ -8,7 +8,8 @@ from langdetect import detect, DetectorFactory
 from langdetect.lang_detect_exception import LangDetectException
 import re
 
-from streamlit_webrtc import webrtc_streamer, WebRtcMode, ClientSettings
+from streamlit_webrtc import webrtc_streamer, WebRtcMode
+from streamlit_webrtc import ClientSettings
 import tempfile
 import wave
 
